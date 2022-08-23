@@ -1,0 +1,5 @@
+$secondary-color: #666867;
+
+.form-control {
+    background-color: lighten(saturate(adjust-hue($secondary-color, 16), 0), 42.94);
+}

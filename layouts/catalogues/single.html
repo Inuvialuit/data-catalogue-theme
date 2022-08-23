@@ -1,0 +1,108 @@
+{{ define "main" }}
+
+<script type="application/ld+json">
+  {{ .Params.jsonld }}
+</script>
+
+<section class="section-sm pt-0">
+  <div class="container">
+    <div class="row justify-content-center" data-aos="fade-in">
+      <div class="col-lg-10 mb-5">
+        {{ with .Params.image }}
+        {{ if fileExists (add `assets/` .) }}
+        {{$img:= resources.Get . }}
+        {{$img:= $img.Resize "1020x "}}
+        {{$imgWebp:= $img.Resize "1020x webp"}}
+        <img loading="lazy" decoding="async" class="w-100 rounded-lg" src="{{$imgWebp.RelPermalink}}" alt="blog-post" onerror="this.onerror=null;this.src='{{$img.RelPermalink}}'">
+        {{end}}
+        {{end}}
+      </div>
+      <div class="col-lg-8">
+
+        <div class="mb-5" vocab="https://schema.org" typeof="Dataset">
+          <h2 property="name">{{.Title | markdownify }}</h2>
+
+          <div class="btn-group-sm" role="group" aria-label="Download">
+            {{ with .Params.jsonld.distribution }}
+            {{ range $index, $val := . }}
+              <a class="btn btn-outline-primary btn-sm" href="{{ .path }}"><i class="la la-download"></i>{{ .name }}</a>
+            {{ end }}
+            {{ end }}
+          </div>
+
+          <div class="row">
+          <div property="description" class="col-md-6">{{ .Params.jsonld.description | markdownify }}</div>
+          <div class="col-md-6" id="map" style="height: 350px"></div>
+          </div>
+
+          <h3>Attributes</h3>
+
+          <dl class="row">
+            {{ range .Params.creator }}
+            <dt class="col-sm-4">Author</dt>
+            <dd class="col-sm-8">
+              {{ partial "person.html" . }}
+            </dd>
+            {{ end }}
+
+            {{ range .Params.maintainer }}
+            <dt class="col-sm-4">Maintainer</dt>
+            <dd class="col-sm-8">
+              {{ partial "person.html" . }}
+            </dd>
+            {{ end }}
+
+            {{ range .Params.provider }}
+            <dt class="col-sm-4">Organization</dt>
+            <dd class="col-sm-8">
+                {{ partial "organization.html" . }}
+            </dd>
+            {{ end }}
+
+            <dt class="col-sm-4">Temporal Coverage</dt>
+            <dd class="col-sm-8">
+              {{ .Params.jsonld.temporalCoverage }}
+            </dd>
+
+            {{ range .Params.jsonld.license }}
+            <dt class="col-sm-4">License</dt>
+            <dd class="col-sm-8">
+              {{ .name }}
+              <a href="{{ .url }}"><span class="la la-external-link"></span></a>
+            </dd>
+            {{ end }}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- /regular page -->
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const boundary = {
+      "type": "Feature",
+      "geometry": {{ .Params.spatialCoverage }}
+    };
+    const map = L.map('map');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
+
+    const layer = L.geoJson(boundary, { style: {
+      "color": "#ff7800",
+      "weight": 5,
+      "opacity": 0.65
+    }});
+    console.log(layer);
+    layer.addTo(map);
+    map.fitBounds(layer.getBounds());
+  })
+</script>
+
+{{ end }}

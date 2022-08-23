@@ -1,0 +1,11 @@
+{{ $isni_logo := resources.Get "/images/logos/isni.svg" }}
+{{ $ror_logo := resources.Get "/images/logos/ror.svg" }}
+{{ .name }}
+{{ if isset . "ror" }}
+<a href="https://ror.org/{{ .ror }}">
+    <img src="{{ $ror_logo.RelPermalink }}" height="16pt"></a>
+{{ end }}
+{{ if isset . "isni" }}
+<a href="https://isni.org/isni/{{ .isni }}"><img src="{{ $isni_logo.RelPermalink }}" height="16pt"></a>
+{{ end }}
+<a href="{{ .url }}"><span class="la la-external-link" /></a>
