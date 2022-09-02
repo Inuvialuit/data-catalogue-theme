@@ -6,7 +6,7 @@
 <section class="section-sm" data-aos="fade-in">
   <div class="container-xxl">
     <div class="row justify-content-center">
-    {{ $paginator := .Paginate (where .RegularPages "Section" "catalogues") }}
+    {{ $paginator := .Paginate .Pages.ByTitle }}
     {{ range $paginator.Pages }}
     <div class="col-lg-5">
       {{ .Render "article" }}
