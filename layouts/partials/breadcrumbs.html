@@ -1,0 +1,4 @@
+{{ with .Parent }}
+  {{ partial "breadcrumbs.html" . }}
+  <li class="breadcrumb-item"><a href="{{ .Permalink }}" class="link-primary">{{ .Title }}</a></li>
+{{ end }}
