@@ -10,6 +10,11 @@ url = "about/"
 weight = 2
 
 [[main]]
+name = "Topics"
+url = "topics/"
+weight = 3
+
+[[main]]
 name = "Datasets"
 url = "catalogues/"
 weight = 4
