@@ -1,0 +1,124 @@
+{{ define "main" }}
+
+<div class="container pt-5" id="search-page">
+  <div class="row">
+    <section class="col-lg-3 pb-0">
+      <a class="btn btn-block btn-lg btn-light" href="/request/">Request dataset</a>
+    </section>
+    <section class="col-lg-9">
+      <form>
+        <div class="form-group">
+          <label class="sr-only" for="id_search">Search</label>
+          <div class="input-group">
+            <input type="text" class="form-control form-control-lg" placeholder="Enter search terms here" v-model="search" aria-label="Search" name="search" id="id_search" form="search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary btn-lg" type="submit" form="search">Search
+              </button>
+              <button class="btn btn-outline-secondary btn-lg" type="button" data-toggle="popover" title="Search" data-html="true" data-content="<p>Search through the catalog using filters and keywords</p>">
+                ?
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    <section class="col-lg-3 pb-2">
+      <form id="search">
+        <div class="card my-1">
+          <div class="card-header">
+            Top Topics (Count)
+          </div>
+          <div class="card-body" v-for="topic in facets.topics">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{% topic.selected %}" name="topic" id="topic-shoreline">
+              <label class="form-check-label" for="topic-shoreline">
+                {% topic.key %} (<b>{% topic.doc_count %}</b>)
+              </label>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-block btn-outline-primary" type="submit">Filter</button>
+      </form>
+    </section>
+    <section class="col-lg-9 pb-2">
+      <div class="card my-1" v-for="match in matches">
+        <div class="card-body">
+          <h5 class="card-title">{% match.title %}</h5>
+          <p class="card-text">{% match.summary %}</p>
+          <a v-for="topic in match.topics" href="#" class="card-link">{% topic %}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script type="application/javascript">
+  const DATA_CATALOG = [
+    {
+      title: 'Shoreline',
+      summary: 'This dataset consists of long-term (~63 years) shoreline change rates for the coast of Inuvialuit Settlement Region',
+      topics: ['Climate Change', 'Shoreline']
+    }
+  ];
+
+  const DATA_CATALOG_SEARCH = {
+    sortings: {
+      title_asc: {
+        field: 'title',
+        order: 'asc'
+      }
+    },
+    aggregations: {
+      topics: {
+        title: 'Topics',
+        size: 10,
+        conjunction: false
+      }
+    },
+    searchableFields: ['title', 'summary']
+  };
+
+  function createSearchIndex() {
+    return itemsjs(DATA_CATALOG, DATA_CATALOG_SEARCH);
+  }
+
+  function createInitialState(index) {
+    const qs = new URLSearchParams(window.location.search);
+    const query = {
+      per_page: 10,
+      page: 1,
+      query: qs.get('search') || '',
+      filters: {
+        topics: qs.getAll('topics')
+      },
+    }
+    const results = index.search(query);
+    console.log(results);
+    return {
+      search: qs.get('search'),
+      facets: {
+        topics: results.data.aggregations.topics.buckets
+      },
+      matches: results.data.items
+    }
+  }
+
+  function createApp(state) {
+    return Vue.createApp({
+      delimiters: ['{%', '%}'],
+      data() {
+        return state
+      }
+    }).mount('#search-page');
+  }
+
+  var app;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const index = createSearchIndex();
+    const state = createInitialState(index);
+    app = createApp(state)
+  });
+</script>
+
+{{ end }}
