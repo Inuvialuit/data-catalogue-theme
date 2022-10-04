@@ -8,6 +8,10 @@
         <div class="block row justify-content-center no-gutters" data-aos="fade-up">
           <div class="col-lg-10 px-0 px-xl-4" data-rellax-speed="-3">
             <h1 class="mb-4" data-aos="fade-up">{{.title | markdownify}}</h1>
+            <form class="input-group" action="/search/" method="get">
+              <input type="text" class="form-control" placeholder="Search the catalog" aria-label="Catalog Search" aria-describedby="search-button" name="search">
+              <button class="btn btn-primary" type="button" id="search-button">Search</button>
+            </form>
           </div>
         </div>
 
