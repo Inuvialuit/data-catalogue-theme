@@ -7,25 +7,17 @@
 <section class="section-sm pt-0">
   <div class="container">
     <div class="row justify-content-center" data-aos="fade-in">
-      <div class="col-lg-10 mb-5">
-        {{ with .Params.image }}
-        {{ if fileExists (add `assets/` .) }}
-        {{$img:= resources.Get . }}
-        {{$img:= $img.Resize "1020x "}}
-        {{$imgWebp:= $img.Resize "1020x webp"}}
-        <img loading="lazy" decoding="async" class="w-100 rounded-lg" src="{{$imgWebp.RelPermalink}}" alt="blog-post" onerror="this.onerror=null;this.src='{{$img.RelPermalink}}'">
-        {{end}}
-        {{end}}
-      </div>
-      <div class="col-lg-8">
-
-        <div class="mb-5">
+      <div class="col-lg-8 mt-5">
+        <div class="">
           <h2>{{.Title | markdownify }}</h2>
           <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
             <ol class="breadcrumb bg-transparent p-0 mb-0">
               {{ partial "breadcrumbs.html" . }}
             </ol>
           </nav>
+          {{ range .Params.topics }}
+          <span class="badge bg-secondary mb-3" data-pagefind-filter="topic">{{ . }}</span>
+          {{ end }}
 
           <div class="row">
           <div property="description" class="col-md-6">{{ .Params.jsonld.description | markdownify }}</div>

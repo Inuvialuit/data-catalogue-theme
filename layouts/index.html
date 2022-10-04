@@ -8,10 +8,6 @@
         <div class="block row justify-content-center no-gutters" data-aos="fade-up">
           <div class="col-lg-10 px-0 px-xl-4" data-rellax-speed="-3">
             <h1 class="mb-4" data-aos="fade-up">{{.title | markdownify}}</h1>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search the catalog" aria-label="Catalog Search" aria-describedby="search-button">
-              <button class="btn btn-primary" type="button" id="search-button">Search</button>
-            </div>
           </div>
         </div>
 
@@ -182,13 +178,7 @@
         </div>
       </div>
       <div class="col-lg-6 mt-3 mt-lg-0" data-aos="fade-up" data-aos-delay="100">
-        <div class="pl-0 pl-lg-3">
-          {{ if fileExists (add `assets/` .image) }}
-          {{$img:= resources.Get .image }}
-          {{$img:= $img.Resize "575x"}}
-          <img loading="lazy" decoding="async" class="img-fluid" width="{{$img.Width}}" height="{{$img.Height}}" src="{{$img.RelPermalink}}" alt="Video Thumbnail" onerror="this.onerror=null;this.src='{{$img.RelPermalink}}'">
-          {{end}}
-        </div>
+        <div id="search"></div>
       </div>
     </div>
     {{end}}
