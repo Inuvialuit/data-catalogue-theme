@@ -43,7 +43,7 @@
     <section class="col-lg-9 pb-2">
       <div class="card my-1" v-for="match in matches">
         <div class="card-body">
-          <h5 class="card-title">{% match.title %}</h5>
+          <h5 class="card-title"><a :href="match.url">{% match.title %}</a></h5>
           <p class="card-text">{% match.summary %}</p>
           <a v-for="topic in match.topics" href="#" class="card-link">{% topic %}</a>
         </div>
@@ -64,7 +64,8 @@
     {
       title: 'Shoreline',
       summary: 'This dataset consists of long-term (~63 years) shoreline change rates for the coast of Inuvialuit Settlement Region',
-      topics: ['Climate Change', 'Shoreline']
+      topics: ['Climate Change', 'Shoreline'],
+      url: '/shoreline/sachs'
     }
   ];
 
