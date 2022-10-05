@@ -150,7 +150,8 @@
           if (!topics.includes(name)) {
             search.append('topics', name);
           }
-          return `?${search.toString()}`;
+          const baseURL = {{ .Permalink }};
+          return `${baseURL}?${search.toString()}`;
         }
       }
     }).mount('#search-page');
