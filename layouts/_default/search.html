@@ -30,8 +30,8 @@
           </div>
           <div class="card-body" v-for="topic in facets.topics">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="{% topic.selected %}" name="topic" id="topic-shoreline">
-              <label class="form-check-label" for="topic-shoreline">
+              <input class="form-check-input" type="checkbox" :value="topic.key" v-model="topic.selected" name="topics" :id="`topic-shoreline-${topic.key}`">
+              <label class="form-check-label" :for="`topic-shoreline-${topic.key}`">
                 {% topic.key %} (<b>{% topic.doc_count %}</b>)
               </label>
             </div>
@@ -45,7 +45,7 @@
         <div class="card-body">
           <h5 class="card-title"><a :href="match.url">{% match.title %}</a></h5>
           <p class="card-text">{% match.summary %}</p>
-          <a v-for="topic in match.topics" href="#" class="card-link">{% topic %}</a>
+          <a v-for="topic in match.topics" :href="topicLink(topic)" class="card-link">{% topic %}</a>
         </div>
       </div>
       <div>
@@ -61,12 +61,14 @@
 
 <script type="application/javascript">
   const DATA_CATALOG = [
-    {
-      title: 'Shoreline',
-      summary: 'This dataset consists of long-term (~63 years) shoreline change rates for the coast of Inuvialuit Settlement Region',
-      topics: ['Climate Change', 'Shoreline'],
-      url: '/shoreline/sachs'
-    }
+    {{- range $index, $page := (where .Site.RegularPages "Section" "catalogues") -}}
+    {{- if gt $index 0 -}} , {{- end -}}
+    {{- $entry := dict "uri" $page.RelPermalink "title" $page.Title -}}
+    {{- $entry = merge $entry (dict "topics" $page.Params.topics) -}}
+    {{- $entry = merge $entry (dict "summary" $page.Params.description) -}}
+    {{- $entry = merge $entry (dict "url" $page.Permalink) -}}
+    {{- $entry -}}
+    {{- end -}}
   ];
 
   const DATA_CATALOG_SEARCH = {
@@ -86,7 +88,7 @@
     searchableFields: ['title', 'summary']
   };
 
-  function createSearchIndex() {
+  async function createSearchIndex() {
     return itemsjs(DATA_CATALOG, DATA_CATALOG_SEARCH);
   }
 
@@ -116,7 +118,7 @@
     const qs = new URLSearchParams(query);
     const xs = [];
     let i = start;
-    while (i < (stop + 1)) {
+    while (i < stop) {
       qs.set('page', i);
       xs.push({ name: i, url: qs.toString()});
       i++;
@@ -140,14 +142,24 @@
             range: range(minpage, maxpage, window.location.search)
           }
         }
+      },
+      methods: {
+        topicLink(name) {
+          const search = new URLSearchParams(window.location.search);
+          const topics = search.getAll('topics');
+          if (!topics.includes(name)) {
+            search.append('topics', name);
+          }
+          return `?${search.toString()}`;
+        }
       }
     }).mount('#search-page');
   }
 
   var app;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const index = createSearchIndex();
+  document.addEventListener("DOMContentLoaded", async () => {
+    const index = await createSearchIndex();
     const state = createInitialState(index);
     app = createApp(state)
   });

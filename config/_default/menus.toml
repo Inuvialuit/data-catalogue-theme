@@ -5,27 +5,17 @@ url = ""
 weight = 1
 
 [[main]]
-name = "About"
-url = "about/"
+name = "Search"
+url = "search/"
 weight = 2
 
 [[main]]
 name = "Datasets"
 url = "catalogues/"
 weight = 4
- 
-[[main]]
-name = "Contact"
-url = "contact/"
-weight = 5
 
 # footer menu
 [[footer]]
-name = "About"
-url = "about/"
+name = "Search"
+url = "search/"
 weight = 1
-
-[[footer]]
-name = "Terms & Conditions"
-url = "terms-and-conditions/"
-weight = 4
