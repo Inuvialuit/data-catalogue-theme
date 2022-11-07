@@ -61,7 +61,7 @@
 
 <script type="application/javascript">
   const DATA_CATALOG = [
-    {{- range $index, $page := (where .Site.RegularPages "Section" "catalogues") -}}
+    {{- range $index, $page := (where .Site.RegularPages "Section" "catalogs") -}}
     {{- if gt $index 0 -}} , {{- end -}}
     {{- $entry := dict "uri" $page.RelPermalink "title" $page.Title -}}
     {{- $entry = merge $entry (dict "topics" $page.Params.topics) -}}

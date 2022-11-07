@@ -11,7 +11,7 @@ weight = 2
 
 [[main]]
 name = "Datasets"
-url = "catalogues/"
+url = "catalogs/"
 weight = 4
 
 # footer menu

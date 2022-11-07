@@ -1,6 +1,6 @@
-# Data Catalogue Theme
+# Data Catalog Theme
 
-A hugo theme for data catalogues.
+A hugo theme for data catalogs.
 
 ## Installation
 
