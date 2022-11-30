@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <script type="application/ld+json">
-  {{ .Params.jsonld }}
+  {{ (merge .Params.jsonld (dict "@id" .Permalink "url" .Permalink "identifier" .Permalink)) }}
 </script>
 
 <section class="section-sm pt-0">
