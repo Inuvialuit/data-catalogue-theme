@@ -22,20 +22,31 @@ brands_carousel:
 
 # features
 features:
-  enable: false
+  enable: true
   subtitle: "Features"
   title: "Ways to use the <br> data in this catalog"
   description: "Access the catalog through"
   features_blocks:
-  - icon: "las la-lock"
-    title: "Intake"
-    content: "An Intake catalog"
   - icon: "las la-search"
     title: "Search"
-    content: "Site Search"
+    content: "[Search](/search/) for datasets and repositories by full text search and keyword"
+  - icon: "las la-code"
+    title: "Intake API"
+    content: |
+      Use the [intake](https://intake.readthedocs.io/en/latest/) library to download data
+
+      ```python
+      from intake import open_catalog
+
+      url = "https://datacatalogirc.blob.core.windows.net/data/catalog.yml"
+      cat = open_catalog(url)
+      ```
   - icon: "las la-network-wired"
     title: "Federated Search"
-    content: "Cross Catalog Search with CCADI"
+    content: "Search across many data catalogs using [Polder federated search](https://search.polder.info/)"
+  - icon: "las la-sitemap"
+    title: "Indexable"
+    content: "Easily extract metadata from the site using the [sitemap](https://www.sitemaps.org/protocol.html) and embedded [Schema.org](https://schema.org) JSON-LD"
 
 # intro_video
 intro_video:   

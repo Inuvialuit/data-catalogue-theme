@@ -12,23 +12,10 @@
               <input type="text" class="form-control" placeholder="Search the catalog" aria-label="Catalog Search" aria-describedby="search-button" name="search">
               <button class="btn btn-primary" type="button" id="search-button">Search</button>
             </form>
-            <p class="text-white">Or you use the Python <a class="badge bg-secondary" style="top: 0px" href="https://datacatalogirc.blob.core.windows.net/data/catalog.yml">intake API</a></p>
           </div>
         </div>
       </div>
     </div>
-
-        {{with .image}}
-        <div class="banner-image" data-aos="fade-up" data-aos-delay="300">
-          <div class="row justify-content-center">
-            <div class="col-lg-10">
-              {{$img:= resources.Get . }}
-              {{$img:= $img.Resize "600x webp"}}
-              <img loading="lazy" decoding="async" class="w-100 img-fluid" width="{{$img.Width}}" height="{{$img.Height}}" src="{{$img.RelPermalink}}" alt="Banner Image">
-            </div>
-          </div>
-        </div>
-        {{end}}
 
         <div class="has-circle">
           <span class="circle-1 ratio-32" data-rellax-speed="-2"></span>
@@ -48,13 +35,52 @@
 </section>
 {{end}}
 
-{{with .Params.brands_carousel}}
+{{with .Params.features}}
 {{if .enable}}
-<section class="overflow-hidden">
+<section class="section features overflow-hidden py-3 mb-1">
   <div class="container">
     <div class="row">
+      <div class="col-lg-12" data-aos="fade-up">
+        <div class="section-title text-center">
+          <p class="text-uppercase">{{.subtitle | markdownify}}</p>
+          <h2 class="title">{{.title | markdownify}}</h2>
+          <p>{{.description | markdownify}}</p>
+        </div>
+      </div>
+    </div>
+
+    {{with .features_blocks}}
+    <div class="row">
+      {{range .}}
+        <div class="features-card col-lg-6 m-0 p-2">
+          <div class="icon text-primary">
+            <i class="{{.icon}}"></i>
+          </div>
+          <h3 class="title">{{.title | markdownify}}</h3>
+          <p class="mb-0">{{.content | markdownify}}</p>
+        </div>
+      {{end}}
+    </div>
+    {{end}}
+  </div>
+</section>
+{{end}}
+{{end}}
+
+{{with .Params.brands_carousel}}
+{{if .enable}}
+<section class="overflow-hidden pt-3 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12" data-aos="fade-up">
+        <div class="section-title text-center">
+          <p class="text-uppercase">Partners</p>
+          <h2 class="title">Project Partners</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-12" data-aos="fade-left">
-        <h3 class="mt-3 pt-3 text-center">Partnered with</h3>
         <div class="brand-carousel mt-0 swiper-container">
           <div class="swiper-wrapper">
             {{range .brand_images}}
@@ -78,48 +104,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-{{end}}
-{{end}}
-
-{{with .Params.features}}
-{{if .enable}}
-<section class="section features overflow-hidden">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12" data-aos="fade-up">
-        <div class="section-title text-center">
-          <p class="text-uppercase">{{.subtitle | markdownify}}</p>
-          <h2 class="title">{{.title | markdownify}}</h2>
-          <p>{{.description | markdownify}}</p>
-        </div>
-      </div>
-    </div>
-
-    {{with .features_blocks}}
-    <div class="row">
-      <div class="col-lg-12" data-aos="fade-left" data-aos-delay="200">
-        <div class="features-carousel swiper-container">
-          <div class="swiper-wrapper align-items-center">
-            {{range .}}
-            <div class="swiper-slide">
-              <div class="features-card">
-                <div class="icon text-primary">
-                  <i class="{{.icon}}"></i>
-                </div>
-                <h3 class="title">{{.title | markdownify}}</h3>
-                <p class="mb-0">{{.content | markdownify}}</p>
-              </div>
-            </div>
-            {{end}}
-          </div>
-
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-    </div>
-    {{end}}
   </div>
 </section>
 {{end}}
