@@ -1,7 +1,6 @@
 ######################## default configuration ####################
 baseURL = "https://zealous-river-0e56eb810.1.azurestaticapps.net"
 title = "Inuvialuit Regional Corporation Data Catalog"
-theme = "github.com/gethugothemes/andromeda-light"
 # post pagination
 paginate = "6"
 # post excerpt
