@@ -9,6 +9,11 @@
                     {{ with .Params.url }}<a href="{{.}}"><i class="las la-external-link-alt"></i></a>{{ end }}
                     {{ with .Params.repo_url }}<a href="{{.}}"><i class="las la-github"></i></a>{{ end }}
                 </h2>
+                <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                    <ol class="breadcrumb bg-transparent p-0 mb-0">
+                    {{ partial "breadcrumbs.html" . }}
+                    </ol>
+                </nav>
                 <div class="row">
                     <div class="col-lg-6">
                         <h3>Description</h3>
