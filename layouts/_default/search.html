@@ -2,8 +2,7 @@
 
 <div class="container pt-5" id="search-page">
   <div class="row">
-    <section class="col-lg-3 pb-0">
-      <a class="btn btn-block btn-lg btn-light" href="/request/">Request dataset</a>
+    <section class="col-lg-3 d-grid">
     </section>
     <section class="col-lg-9">
       <form>
@@ -11,13 +10,7 @@
           <label class="sr-only" for="id_search">Search</label>
           <div class="input-group">
             <input type="text" class="form-control form-control-lg" placeholder="Enter search terms here" v-model="search" aria-label="Search" name="search" id="id_search" form="search">
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary btn-lg" type="submit" form="search">Search
-              </button>
-              <button class="btn btn-outline-secondary btn-lg" type="button" data-toggle="popover" title="Search" data-html="true" data-content="<p>Search through the catalog using filters and keywords</p>">
-                ?
-              </button>
-            </div>
+            <button class="btn btn-outline-primary btn-lg" type="submit" form="search">Search</button>
           </div>
         </div>
       </form>
