@@ -27,7 +27,7 @@
 {{ end }}
 {{ $styles := $styles | append (resources.Get "scss/style.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS) }}
 {{ $styles := $styles | resources.Concat "/css/style.css" | minify | fingerprint "sha512" }}
-<style>{{ $styles.Content | safeCSS }}</style>
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" media="all">
 
 <!-- CDN plugins -->
 {{ range site.Params.plugins.css }}
