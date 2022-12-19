@@ -36,7 +36,7 @@ link = "plugins/webfont-loader/webfont-loader-2.min.js"
 [[params.plugins.js]]
 link = "plugins/itemsjs/itemsjs.js"
 [[params.plugins.js]]
-link = "https://unpkg.com/vue@3"
+link = "plugins/vue/vue.global.prod.js"
 [[params.plugins.js]]
 link = "plugins/leaflet/leaflet.js"
 
