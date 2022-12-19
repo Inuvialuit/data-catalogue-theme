@@ -20,7 +20,7 @@ link = "plugins/swiper/swiper-bundle.min.css"
 [[params.plugins.css]]
 link = "plugins/aos/aos.css"
 [[params.plugins.css]]
-link = "https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+link = "plugins/leaflet/leaflet.css"
 
 ############################# Params ##############################
 [[params.plugins.js]]
@@ -34,11 +34,11 @@ link = "plugins/rellax/rellax.min.js"
 [[params.plugins.js]]
 link = "plugins/webfont-loader/webfont-loader-2.min.js"
 [[params.plugins.js]]
-link = "https://unpkg.com/itemsjs@latest/dist/itemsjs.min.js"
+link = "plugins/itemsjs/itemsjs.js"
 [[params.plugins.js]]
 link = "https://unpkg.com/vue@3"
 [[params.plugins.js]]
-link = "https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+link = "plugins/leaflet/leaflet.js"
 
 ############################# Modules ##############################
 [module]
