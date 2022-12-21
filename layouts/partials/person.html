@@ -1,7 +1,5 @@
 {{ .family_name }}, {{ .given_name }}
 {{ if isset . "orcid" }}
-<a href="https://orcid.org/{{ .orcid }}">
-    <span class="lab la-orcid"></span>
-</a>
+<a href="https://orcid.org/{{ .orcid }}"><span class="lab la-orcid"></span></a>
 {{ end }}
 <a href="mailto:{{ .email }}"><span class="la la-envelope"></span></a>
