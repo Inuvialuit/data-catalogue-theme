@@ -28,7 +28,8 @@
 {{ $styles := $styles | append (resources.Get "scss/style.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS) }}
 {{ $styles := $styles | resources.Concat "/css/style.css" | minify | fingerprint "sha512" }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" media="all">
-
+{{$pf:= site.Params.variables.primary_font}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{$pf}}">
 <!-- CDN plugins -->
 {{ range site.Params.plugins.css }}
 {{ if findRE "^http" .link }}
