@@ -44,7 +44,7 @@
       <div>
         <ul class="nav">
           <li class="nav-item" v-for="p in pages.range">
-            <a :class="['nav-link', p === page ? 'disabled' : '' ]" :href="`?${p.url}`">{% p.name %}</a>
+            <a :class="['nav-link', p === page ? 'disabled' : '' ]" :href="p.url">{% p.name %}</a>
           </li>
         </ul>
       </div>
@@ -103,17 +103,18 @@
       },
       matches: results.data.items,
       page: query.page,
-      last_page: results.pagination.total
+      last_page: Math.ceil(results.pagination.total / results.pagination.per_page)
     }
   }
 
   function range(start, stop, query) {
+    const baseURL = {{ .Permalink }};
     const qs = new URLSearchParams(query);
     const xs = [];
     let i = start;
     while (i < stop) {
       qs.set('page', i);
-      xs.push({ name: i, url: qs.toString()});
+      xs.push({ name: i, url: `${baseURL}?${qs.toString()}`});
       i++;
     }
     return xs;
