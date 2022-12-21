@@ -10,7 +10,7 @@ url = "search/"
 weight = 2
 
 [[main]]
-name = "Datasets"
+name = "Catalogs"
 url = "catalogs/"
 weight = 4
 
