@@ -44,7 +44,7 @@
       <div>
         <ul class="nav">
           <li class="nav-item" v-for="p in pages.range">
-            <a :class="['nav-link', p === page ? 'disabled' : '' ]" :href="p.url">{% p.name %}</a>
+            <a :class="['nav-link', p.name === page ? 'disabled' : '' ]" :href="p.url">{% p.name %}</a>
           </li>
         </ul>
       </div>
@@ -112,7 +112,7 @@
     const qs = new URLSearchParams(query);
     const xs = [];
     let i = start;
-    while (i < stop) {
+    while (i <= stop) {
       qs.set('page', i);
       xs.push({ name: i, url: `${baseURL}?${qs.toString()}`});
       i++;
