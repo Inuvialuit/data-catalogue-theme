@@ -16,7 +16,7 @@
             </ol>
           </nav>
           {{ range .Params.topics }}
-          <span class="badge bg-secondary mb-3" data-pagefind-filter="topic">{{ . }}</span>
+          <a class="badge bg-secondary mb-3" data-pagefind-filter="topic" href="/search/?topics={{ . }}">{{ . }}</a>
           {{ end }}
 
           <div class="row">
