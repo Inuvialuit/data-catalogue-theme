@@ -1,5 +1,6 @@
 ---
 title: "Home"
+description: "Data Catalog for the Inuvialuit Regional Corporation. Find socioeconomic, environmental and physical sciences data about the Inuvialuit Settlement Region here."
 
 # banner
 banner:
